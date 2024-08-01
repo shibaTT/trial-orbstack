@@ -17,8 +17,9 @@ onMounted(() => {
 </script>
 
 <template>
-  <div>
+  <nav class="header">
     <h1>Google</h1>
+
     <div class="header__search">
       <input
         class="header__searchBox"
@@ -48,10 +49,22 @@ onMounted(() => {
         </svg>
       </div>
     </div>
-  </div>
+
+    <div class="header__settings">
+      <div class="header__settingsAccount"></div>
+    </div>
+  </nav>
 </template>
 
 <style scoped lang="scss">
+.header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2rem;
+  padding: 0 24px;
+}
+
 .header__search {
   display: flex;
   justify-content: center;
@@ -105,6 +118,17 @@ onMounted(() => {
 
   svg {
     fill: currentColor;
+  }
+}
+
+.header__settings {
+  margin-left: auto;
+
+  .header__settingsAccount {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--color-gray);
   }
 }
 

@@ -3,9 +3,7 @@ import Header from "@/components/Header.vue";
 </script>
 
 <template>
-  <nav>
-    <Header />
-  </nav>
+  <Header />
   <main>
     <slot />
   </main>
