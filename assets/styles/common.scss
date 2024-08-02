@@ -1,4 +1,19 @@
 :root {
+  --color-white: #ffffff;
   --color-gray: #5e5e5e;
   --color-light-gray: #dadce0;
+  --color-gray-white: #f1f3f4;
+  --color-link-blue: #1a0dab;
+  --color-gray-black: #4d5156;
+  --color-grayish-black: #202124;
+  --color-blue: #1a73e8;
+  --color-sky-blue: #e8f0fe;
+}
+
+body {
+  margin: 0;
+}
+
+p {
+  margin: 0;
 }
