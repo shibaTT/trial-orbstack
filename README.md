@@ -24,11 +24,27 @@ https://zenn.dev/r0227n/articles/nuxt3_directory_structure_memo
 - `server`: サーバーサイドのロジックを格納します。このディレクトリ内に配置したファイルはサーバーサイドで実行され、API エンドポイントとして利用できます。
 - `utils`: ユーティリティ関数など、プロジェクト全体で使用する JavaScript のヘルパー関数を格納します。
 
+### ページング、ページャーについて
+
+cursor に何渡せばええねんって思ってたら調べてくれてる人がいた
+
+ありがとう
+
+(https://thinkami.hatenablog.com/entry/2024/05/07/223028#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF-cursor-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6)[https://thinkami.hatenablog.com/entry/2024/05/07/223028#%E3%83%91%E3%83%A9%E3%83%A1%E3%83%BC%E3%82%BF-cursor-%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6]
+
+### ライブラリ
+
+TOKIMEKI でも使われてる PhotoSwipe ってライブラリ導入すれば画像のスライド処理とかは楽かも
+
+https://photoswipe.com/getting-started/
+
 ## インストール
 
 先に Bun をインストールしてください
 
 https://bun.sh/docs/installation
+
+インストールしたら以下のコードを実行することでプロジェクトがインストールされます
 
 ```bash
 git clone https://github.com/shibaTT/phantom-social-client.git
