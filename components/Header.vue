@@ -18,7 +18,7 @@ onMounted(() => {
 
 <template>
   <nav class="header">
-    <h1>Google</h1>
+    <h1>Bloogle</h1>
 
     <div class="header__search">
       <input
@@ -61,8 +61,9 @@ onMounted(() => {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  gap: 2rem;
   padding: 0 24px;
+
+  gap: 2rem;
 }
 
 .header__search {
