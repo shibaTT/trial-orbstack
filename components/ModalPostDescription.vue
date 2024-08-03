@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defineProps } from "vue";
+import { defineProps, watch, ref } from "vue";
 import type { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 import type { GetFeedRecord } from "@/types/types";
 
@@ -11,7 +11,17 @@ const props = defineProps<{
   };
 }>();
 
-const { post, reply } = props.feed;
+// const { post, reply } = props.feed;
+const post = ref(props.feed.post);
+const reply = ref(props.feed.reply);
+
+watch(
+  () => props.feed,
+  () => {
+    post.value = props.feed.post;
+    reply.value = props.feed.reply;
+  }
+);
 </script>
 
 <template>
@@ -25,7 +35,7 @@ const { post, reply } = props.feed;
         height="28"
       />
       <span class="description__userName">{{ post.author.displayName }}</span>
-      <div class="description__closeButton">
+      <div class="description__closeButton" @click="$emit('close')">
         <svg viewBox="0 0 24 24" focusable="false" height="24" width="24">
           <path d="M0 0h24v24H0z" fill="none"></path>
           <path
@@ -75,7 +85,17 @@ const { post, reply } = props.feed;
 }
 
 .description__closeButton {
+  display: flex;
+  align-items: center;
   margin-left: auto;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    background-color: var(--color-sky-blue);
+  }
 }
 
 .description__meta {
@@ -87,6 +107,7 @@ const { post, reply } = props.feed;
 
 .description__titleContainer {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   padding-top: 16px;
 

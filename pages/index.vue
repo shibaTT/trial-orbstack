@@ -17,18 +17,21 @@ const feeds = response.data.value?.feed;
 
 const isModalOpen = ref(false);
 const modalFeed = ref(null);
-const toggleModal = (payload: any) => {
+const openModal = (payload: any) => {
   modalFeed.value = payload.feed;
-  isModalOpen.value = !isModalOpen.value;
+  isModalOpen.value = true;
+};
+const closeModal = () => {
+  isModalOpen.value = false;
 };
 </script>
 
 <template>
   <div v-if="feeds !== undefined" class="posts">
-    <Post v-for="feed in feeds" :key="feed.post.cid" :feed="feed" @on-click="toggleModal" />
+    <Post v-for="feed in feeds" :key="feed.post.cid" :feed="feed" @on-click="openModal" />
   </div>
   <Modal v-if="isModalOpen" @close="isModalOpen = false">
-    <ModalPostDescription :feed="modalFeed" />
+    <ModalPostDescription v-if="modalFeed !== null" :feed="modalFeed" @close="closeModal" />
   </Modal>
 </template>
 
