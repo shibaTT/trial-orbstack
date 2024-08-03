@@ -1,4 +1,5 @@
 {
   "prettier.tabWidth": 2,
-  "cSpell.words": ["atproto", "unspecced"]
+  "cSpell.words": ["atproto", "Dexie", "indexeddb", "unspecced"],
+  "editor.tabSize": 2
 }
