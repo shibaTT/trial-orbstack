@@ -1,11 +1,11 @@
-import "fake-indexeddb/auto";
+import type { AtpSessionData } from "@atproto/api";
 import Dexie, { type Table } from "dexie";
 
 export interface User {
-  id: number;
-  service: string;
-  accessJwt: string;
-  refreshJwt: string;
+  id?: number;
+  session: AtpSessionData;
+  avatar?: string;
+  name?: string;
 }
 
 export const db = new Dexie("accountDB") as Dexie & {
@@ -13,5 +13,14 @@ export const db = new Dexie("accountDB") as Dexie & {
 };
 
 db.version(1).stores({
-  user: "++id, service, accessJwt, refreshJwt",
+  user: "++id, session, avatar, name",
 });
+
+export const addUser = async (session: AtpSessionData) => {
+  // putにすると自動でid採番してくれるし、id指定すれば更新もできる
+  // て思ったけどidは1以外存在しないはずなので自動採番する必要性がなかった
+  db.user.put({
+    id: 1,
+    session: session,
+  });
+};

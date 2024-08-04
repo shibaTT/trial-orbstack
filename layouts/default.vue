@@ -1,5 +1,12 @@
 <script setup lang="ts">
-import Header from "@/components/Header.vue";
+// (async () => {
+//   const router = useRouter();
+//   const accounts = await db.user.toArray();
+
+//   if (accounts.length === 0) {
+//     router.push("/login");
+//   }
+// })();
 </script>
 
 <template>
