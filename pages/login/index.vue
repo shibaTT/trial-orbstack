@@ -23,7 +23,15 @@ const clickLoginHandler = async () => {
 
   console.log(response.data);
 
-  if (response.status !== 200) {
+  if (response.status === 200 && response.data) {
+    isError.value = false;
+
+    if (await addUser(response.data)) {
+      navigateTo("/");
+    } else {
+      isError.value = true;
+    }
+  } else {
     isError.value = true;
   }
 };
