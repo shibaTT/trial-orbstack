@@ -19,8 +19,15 @@ db.version(1).stores({
 export const addUser = async (session: AtpSessionData) => {
   // putにすると自動でid採番してくれるし、id指定すれば更新もできる
   // て思ったけどidは1以外存在しないはずなので自動採番する必要性がなかった
-  db.user.put({
-    id: 1,
-    session: session,
-  });
+  db.user
+    .put({
+      id: 1,
+      session: session,
+    })
+    .catch((error) => {
+      console.error(error);
+      return false;
+    });
+
+  return true;
 };

@@ -2,18 +2,39 @@
 import type { GetFeedRecord } from "@/types/types";
 import type { FeedViewPost } from "@atproto/api/dist/client/types/app/bsky/feed/defs";
 
+type ExtendFeedViewPost = FeedViewPost & {
+  post: {
+    record: GetFeedRecord;
+  };
+};
+
 type Feed = {
-  feed: (FeedViewPost & {
-    post: {
-      record: GetFeedRecord;
-    };
-  })[];
+  feed: ExtendFeedViewPost[];
   cursor: string;
 };
 
-const response = await useFetch<Feed>("/api/getPopularPosts");
-const feeds = response.data.value?.feed;
+// const response = await useFetch<Feed>("/api/getPopularPosts");
+// const feeds = response.data.value?.feed;
 // console.log(feeds);
+
+const feeds = ref<ExtendFeedViewPost[]>([]);
+
+onBeforeMount(async () => {
+  const agent = await resumeAgent();
+
+  if (!agent) {
+    navigateTo("/login");
+    return;
+  }
+
+  // const { data } = await agent.getTimeline({ limit: 10 });
+  const { feed } = await $fetch<Feed>("/api/getTimeline", {
+    method: "POST",
+    body: JSON.stringify({ session: agent.session }),
+  });
+
+  feeds.value = feed;
+});
 
 const isModalOpen = ref(false);
 const modalFeed = ref(null);
