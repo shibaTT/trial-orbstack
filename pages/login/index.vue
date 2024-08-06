@@ -8,8 +8,17 @@ definePageMeta({
 const username = ref<string>("");
 const password = ref<string>("");
 const isError = ref<boolean>(false);
+const errorText = ref<string>("不明なエラーが発生しました");
 
 const clickLoginHandler = async () => {
+  isError.value = false;
+
+  if (username.value === "" || password.value === "") {
+    isError.value = true;
+    errorText.value = "ユーザーネームまたはパスワードを入力してください";
+    return;
+  }
+
   const response = await $fetch("/api/signup", {
     method: "POST",
     body: JSON.stringify({
@@ -25,6 +34,7 @@ const clickLoginHandler = async () => {
 
   if (response.status !== 200) {
     isError.value = true;
+    errorText.value = "ユーザーネームまたはパスワードが間違っています";
   }
 };
 </script>
@@ -44,7 +54,7 @@ const clickLoginHandler = async () => {
 
           <div class="login__form">
             <p class="login__error" v-if="isError">
-              ユーザーネームまたはパスワードが間違っています
+              {{ errorText }}
             </p>
             <div class="login__formItem">
               <input
