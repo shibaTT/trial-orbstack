@@ -39,6 +39,7 @@ const clickLoginHandler = async () => {
       navigateTo("/");
     } else {
       isError.value = true;
+      errorText.value = "サーバー側のエラーです";
     }
   } else {
     isError.value = true;

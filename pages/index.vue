@@ -19,8 +19,9 @@ type Feed = {
 
 const feeds = ref<ExtendFeedViewPost[]>([]);
 
-onBeforeMount(async () => {
-  const agent = await resumeAgent();
+const getFeed = async () => {
+  const userData = await db.user.get(1);
+  const agent = userData ? await resumeAgent(userData.session) : null;
 
   if (!agent) {
     navigateTo("/login");
@@ -34,6 +35,10 @@ onBeforeMount(async () => {
   });
 
   feeds.value = feed;
+};
+
+onBeforeMount(async () => {
+  await getFeed();
 });
 
 const isModalOpen = ref(false);
@@ -45,6 +50,12 @@ const openModal = (payload: any) => {
 const closeModal = () => {
   isModalOpen.value = false;
 };
+
+const emitter = useEmitter();
+emitter.on("timeline:reload", async () => {
+  await getFeed();
+  console.log("reloaded");
+});
 </script>
 
 <template>

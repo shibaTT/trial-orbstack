@@ -22,6 +22,48 @@ watch(
     reply.value = props.feed.reply;
   }
 );
+
+const postUrl = () => {
+  const postId = post.value.uri.split("/").pop();
+  return `https://bsky.app/profile/${post.value.author.handle}/post/${postId}`;
+};
+
+const userData = await db.user.get(1);
+
+const shareHandler = async () => {
+  // Web Share APIを使うので対応してなかったらURLコピーさせる
+  if (navigator.share) {
+    navigator.share({
+      title: "Bloosky",
+      text: post.value.record.text,
+      url: postUrl(),
+    });
+  } else {
+    console.error("駄目です");
+    await navigator.clipboard.writeText(postUrl());
+    alert("コピーしました");
+  }
+};
+
+const repostHandler = async () => {
+  if (!userData) return;
+  const agent = await resumeAgent(userData.session);
+  if (!agent) return;
+  await agent
+    .repost(post.value.uri, post.value.cid)
+    .then(() => console.log("successfully repost"))
+    .catch(() => console.log("failed to repost"));
+};
+
+const likeHandler = async () => {
+  if (!userData) return;
+  const agent = await resumeAgent(userData.session);
+  if (!agent) return;
+  await agent
+    .like(post.value.uri, post.value.cid)
+    .then(() => console.log("successfully liked"))
+    .catch(() => console.log("failed to like"));
+};
 </script>
 
 <template>
@@ -48,16 +90,25 @@ watch(
     <div class="description__meta">
       <div class="description__titleContainer">
         <h3 class="description__title">{{ post.record.text }}</h3>
-        <LinkButton href="/" width="80px" bgcolor="var(--color-blue)" color="var(--color-white)"
+        <LinkButton
+          :href="postUrl()"
+          width="80px"
+          bgcolor="var(--color-blue)"
+          color="var(--color-white)"
+          :external="true"
           >表示</LinkButton
         >
       </div>
       <div class="description__description">{{ post.record.text }}</div>
       <div class="description__metaButtons">
-        <Button bgcolor="var(--color-sky-blue)">シェア</Button>
-        <Button bgcolor="var(--color-sky-blue)">リポスト</Button>
-        <Button bgcolor="var(--color-sky-blue)">いいね</Button>
+        <Button bgcolor="var(--color-sky-blue)" @click="shareHandler">シェア</Button>
+        <Button bgcolor="var(--color-sky-blue)" @click="repostHandler">リポスト</Button>
+        <Button bgcolor="var(--color-sky-blue)" @click="likeHandler">いいね</Button>
       </div>
+    </div>
+
+    <div>
+      <pre>{{ props.feed }}</pre>
     </div>
   </div>
 </template>
@@ -65,6 +116,9 @@ watch(
 <style lang="scss" scoped>
 .description {
   padding: 16px;
+  width: 100%;
+  height: 100%;
+  overflow-y: scroll;
 }
 
 .description__header {

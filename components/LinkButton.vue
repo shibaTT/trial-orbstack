@@ -1,16 +1,23 @@
 <script lang="ts" setup>
-const props = defineProps<{
-  href: string;
-  color?: string;
-  bgcolor?: string;
-  width?: string | number;
-}>();
+const props = withDefaults(
+  defineProps<{
+    href: string;
+    color?: string;
+    bgcolor?: string;
+    width?: string | number;
+    external?: boolean;
+  }>(),
+  {
+    external: false,
+  }
+);
 </script>
 
 <template>
   <a
     :href="href"
     :style="{ backgroundColor: props.bgcolor, color: props.color, width: props.width }"
+    :target="props.external ? '_blank' : '_self'"
   >
     <slot />
   </a>
