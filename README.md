@@ -24,6 +24,10 @@ https://zenn.dev/r0227n/articles/nuxt3_directory_structure_memo
 - `server`: サーバーサイドのロジックを格納します。このディレクトリ内に配置したファイルはサーバーサイドで実行され、API エンドポイントとして利用できます。
 - `utils`: ユーティリティ関数など、プロジェクト全体で使用する JavaScript のヘルパー関数を格納します。
 
+### あとでみる
+
+EventBusについて　ー　https://www.google.com/amp/s/dev.appswingby.com/nuxt/vue3-x%25E7%25B3%25BB%25E3%2581%25A7%25E3%2581%25AEevent-bus%25E5%25AE%259F%25E8%25A3%2585%25E3%2581%25AB%25E3%2581%25A4%25E3%2581%2584%25E3%2581%25A6/amp/
+
 ### ページング、ページャーについて
 
 cursor に何渡せばええねんって思ってたら調べてくれてる人がいた
