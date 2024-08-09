@@ -7,10 +7,15 @@
 //     router.push("/login");
 //   }
 // })();
+
+const userData = await db.user.get(1);
+
+const tabs = userData ? await getFeeds(userData.session) : [];
 </script>
 
 <template>
   <Header />
+  <HeaderTabs :tabs="tabs" />
   <main>
     <slot />
   </main>
