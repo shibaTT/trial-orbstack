@@ -7,10 +7,13 @@
 //     router.push("/login");
 //   }
 // })();
+const tabs = ref([]);
 
-const userData = await db.user.get(1);
+onBeforeMount(async () => {
+  const userData = await db.user.get(1);
 
-const tabs = userData ? await getFeeds(userData.session) : [];
+  tabs.value = userData ? await getFeeds(userData.session) : [];
+});
 </script>
 
 <template>

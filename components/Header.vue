@@ -78,7 +78,7 @@ onBeforeMount(async () => {
   display: flex;
   justify-content: flex-start;
   align-items: center;
-  padding: 0 24px;
+  padding: 12px 24px;
 
   gap: 2rem;
 }
